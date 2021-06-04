@@ -10,16 +10,20 @@ def input():
 
     # close file
     text_file.close()
+    return data
 
+def virusparser(data: str):
     # replace text
     data = re.sub("^[^/*]*$", "", data, flags=re.MULTILINE)
     data = re.sub("^\n", "", data, flags=re.MULTILINE)
+    pyperclip.copy(data)
+    data = data.split("\n")
     #print(repr(data));
-
-    print(data)
+    #print(data)
     return data
 
 if __name__ == '__main__':
     # TODO Code
-    data = input()
-    pyperclip.copy(data)
+    #data = input()
+    #pyperclip.copy(data)
+    print("Ok")

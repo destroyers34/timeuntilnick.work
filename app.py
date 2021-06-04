@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from nick import checkfornick
+from virusparser import virusparser
 
 TimeUntilNickApp = Flask(__name__)
 
@@ -27,7 +28,8 @@ def data():
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
         form_data = request.form
-        return render_template('data.html', form_data=form_data)
+        results = virusparser(form_data["virus"])
+        return render_template('data.html', results=results)
 
 
 if __name__ == "__main__":
