@@ -2,11 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Imunify List</title>
+    <link rel="shortcut icon" href="https://media.timeuntilnick.work/bug.ico" type="image/x-icon">
+    <link rel="icon" href="https://media.timeuntilnick.work/bug.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body, h1 {
+            font-family: "Raleway", sans-serif
+        }
+
+        body, html {
+            height: 100%
+        }
+
+        .bgimg {
+            background-image: url('https://media.timeuntilnick.work/wallhaven-49qo71.jpg');
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-{% for value in results %}
-<p> {{value}}</p>
-{% endfor %}
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-padding w3-display-middle">
+
+    <textarea rows = "25" cols = "100" id="copyMe">{{results}}</textarea><br>
+    <p><button onclick="copyMyText()">Copy To Clipboard</button></p>
+
+    </div>
+</div>
 </body>
+<script>
+function copyMyText() {
+     //select the element with the id "copyMe", must be a text box
+     var textToCopy = document.getElementById("copyMe");
+     //select the text in the text box
+     textToCopy.select();
+     //copy the text to the clipboard
+     document.execCommand("copy");
+}
+</script>
 </html>
+
+
+

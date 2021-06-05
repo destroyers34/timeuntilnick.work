@@ -2,12 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Imunify List</title>
+    <link rel="shortcut icon" href="https://media.timeuntilnick.work/bug.ico" type="image/x-icon">
+    <link rel="icon" href="https://media.timeuntilnick.work/bug.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body, h1 {
+            font-family: "Raleway", sans-serif
+        }
+
+        body, html {
+            height: 100%
+        }
+
+        .bgimg {
+            background-image: url('https://media.timeuntilnick.work/wallhaven-49qo71.jpg');
+            min-height: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-<form action="/results" method = "POST">
-    <textarea rows = "50" cols = "120" name = "virus"></textarea><br>
-    <p><input type = "submit" value = "Submit" /></p>
-</form>
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-padding w3-display-middle">
+        <form action="/results" method="POST">
+            <textarea rows="25" cols="100" name="virus"></textarea><br>
+            <p><input type="submit" value="Submit"/></p>
+        </form>
+    </div>
+</div>
 </body>
 </html>
