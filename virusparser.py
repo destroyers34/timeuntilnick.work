@@ -1,6 +1,7 @@
 import re
 import pyperclip
 
+
 def input():
     # open text file in read mode
     text_file = open("test.txt", "r")
@@ -12,18 +13,18 @@ def input():
     text_file.close()
     return data
 
+
 def virusparser(data: str):
     # replace text
     data = re.sub("^[^/*]*$", "", data, flags=re.MULTILINE)
     data = re.sub("^\n", "", data, flags=re.MULTILINE)
-    pyperclip.copy(data)
-    data = data.split("\n")
-    #print(repr(data));
-    #print(data)
+    try:
+        pyperclip.copy(data)
+        data = data.split("\n")
+    except Exception as e:
+        data = f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}"
     return data
 
+
 if __name__ == '__main__':
-    # TODO Code
-    #data = input()
-    #pyperclip.copy(data)
-    print("Ok")
+    print(virusparser(input()))
