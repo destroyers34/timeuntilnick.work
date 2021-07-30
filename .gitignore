@@ -51,3 +51,4 @@ wheels/
 .installed.cfg
 *.egg
 /test.txt
+/tmp/
