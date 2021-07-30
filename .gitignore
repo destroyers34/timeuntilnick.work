@@ -53,6 +53,6 @@ wheels/
 
 # Passenger files
 /tmp/
-/tmp/*
+/tmp/restart.txt
 
 /test.txt
