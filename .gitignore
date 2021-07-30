@@ -50,5 +50,9 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-/test.txt
+
+# Passenger files
 /tmp/
+/tmp/*
+
+/test.txt
