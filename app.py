@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from nick import checkfornick
 from virusparser import virusparser
 from spamurlparser import urlparser
@@ -9,6 +9,12 @@ TimeUntilNickApp = Flask(__name__)
 @TimeUntilNickApp.errorhandler(403)
 def page_not_found(e):
     return render_template('errors/403.html'), 403
+
+
+@TimeUntilNickApp.before_request
+def limit_remote_addr():
+    if request.remote_addr != '199.188.220.242':
+        abort(403)  # Forbidden
 
 
 @TimeUntilNickApp.route("/")
