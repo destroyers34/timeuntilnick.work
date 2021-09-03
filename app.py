@@ -6,6 +6,11 @@ from spamurlparser import urlparser
 TimeUntilNickApp = Flask(__name__)
 
 
+@TimeUntilNickApp.errorhandler(403)
+def page_not_found(e):
+    return render_template('errors/403.html'), 403
+
+
 @TimeUntilNickApp.route("/")
 def hello():
     return render_template('index.html', time=checkfornick())
@@ -50,3 +55,4 @@ def parsedurls():
 
 if __name__ == "__main__":
     TimeUntilNickApp.run()
+
