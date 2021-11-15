@@ -13,20 +13,27 @@ def page_not_found(e):
 
 @TimeUntilNickApp.before_request
 def limit_remote_addr():
-    if request.remote_addr != '199.188.220.242':
+    if request.remote_addr != '199.188.220.242' and request.remote_addr != '127.0.0.1':
+        print(request.remote_addr)
         abort(403)  # Forbidden
 
 
 @TimeUntilNickApp.route("/")
 def hello():
-    return render_template('index.html', time=checkfornick())
+    time = checkfornick()
+    if time == -1:
+        return render_template('index.html', time='Nick is working right now!')
+    else:
+        return render_template('index.html', time='Nick will be back in {} minute(s)'.format(time))
 
 
 @TimeUntilNickApp.route("/commercial")
-def martine():
-    timestring = checkfornick().split()
-    time = "Commercial department will be back in " + str(int(timestring[5]) + 30) + " minute(s)"
-    return render_template('index.html', time=time)
+def commercial():
+    time = checkfornick()
+    if time == -1:
+        return render_template('index.html', time='Commercial department is open right now!')
+    else:
+        return render_template('index.html', time='Commercial department will be back in {} minute(s)'.format(str(int(time)+30)))
 
 
 @TimeUntilNickApp.route('/virusform')

@@ -32,11 +32,13 @@ def isnickworkingtoday():
 
 def checkfornick():
     if not isnickworking():
-        print('Nick will be back in {} minute(s)'.format(untilnick()))
-        return 'Nick will be back in {} minute(s)'.format(untilnick())
+        #print('Nick will be back in {} minute(s)'.format(untilnick()))
+        #return 'Nick will be back in {} minute(s)'.format(untilnick())
+        return untilnick()
     else:
-        print('Nick is working right now!')
-        return 'Nick is working right now!'
+        #print('Nick is working right now!')
+        #return 'Nick is working right now!'
+        return -1
 
 
 if __name__ == '__main__':
