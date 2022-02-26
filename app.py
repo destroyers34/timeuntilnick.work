@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, abort
 from nick import checkfornick
 from virusparser import virusparser
 from spamurlparser import urlparser
+from ph_twitterbot import check_tweet
+import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 TimeUntilNickApp = Flask(__name__)
 
@@ -64,6 +68,18 @@ def parsedurls():
         form_data = request.form
         results = urlparser(form_data["urls"]).split("\n")
         return render_template('spamurlparser/data.html', results=results)
+
+
+def refreshnewtweet():
+    check_tweet()
+    print("New Tweet Checked")
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=refreshnewtweet, trigger="interval", seconds=60)
+scheduler.start()
+
+atexit.register(lambda: scheduler.shutdown())
 
 
 if __name__ == "__main__":
