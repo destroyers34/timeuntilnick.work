@@ -7,22 +7,22 @@ import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
-TimeUntilNickApp = Flask(__name__)
+application = Flask(__name__)
 
 
-@TimeUntilNickApp.errorhandler(403)
+@application.errorhandler(403)
 def page_not_found(e):
     return render_template('errors/403.html'), 403
 
 
-@TimeUntilNickApp.before_request
+@application.before_request
 def limit_remote_addr():
     if request.remote_addr != '199.188.220.242' and request.remote_addr != '127.0.0.1':
         print(request.remote_addr)
         abort(403)  # Forbidden
 
 
-@TimeUntilNickApp.route("/")
+@application.route("/")
 def hello():
     time = checkfornick()
     if time == -1:
@@ -31,7 +31,7 @@ def hello():
         return render_template('index.html', time='Nick will be back in {} minute(s)'.format(time))
 
 
-@TimeUntilNickApp.route("/commercial")
+@application.route("/commercial")
 def commercial():
     time = checkfornick()
     if time == -1:
@@ -40,12 +40,12 @@ def commercial():
         return render_template('index.html', time='Commercial department will be back in {} minute(s)'.format(str(int(time)+30)))
 
 
-@TimeUntilNickApp.route('/virusform')
+@application.route('/virusform')
 def virusform():
     return render_template('form.html')
 
 
-@TimeUntilNickApp.route('/results/', methods=['POST', 'GET'])
+@application.route('/results/', methods=['POST', 'GET'])
 def virusdata():
     if request.method == 'GET':
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
@@ -55,12 +55,12 @@ def virusdata():
         return render_template('data.html', results=results)
 
 
-@TimeUntilNickApp.route('/spamurlparser')
+@application.route('/spamurlparser')
 def spamurlparser():
     return render_template('spamurlparser/form.html')
 
 
-@TimeUntilNickApp.route('/spamurlparser/results/', methods=['POST', 'GET'])
+@application.route('/spamurlparser/results/', methods=['POST', 'GET'])
 def parsedurls():
     if request.method == 'GET':
         return f"The URL /data is accessed directly. Try going to '/spamurlparser' to submit form"
@@ -83,5 +83,5 @@ atexit.register(lambda: scheduler.shutdown())
 
 
 if __name__ == "__main__":
-    TimeUntilNickApp.run()
+    application.run()
 
