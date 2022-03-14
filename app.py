@@ -1,8 +1,10 @@
+import datetime
 from flask import Flask, render_template, request, abort
 from nick import checkfornick
 from virusparser import virusparser
 from spamurlparser import urlparser
 from ph_twitterbot import check_tweet
+from backupstats import get_server_list
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -68,6 +70,11 @@ def parsedurls():
         form_data = request.form
         results = urlparser(form_data["urls"]).split("\n")
         return render_template('spamurlparser/data.html', results=results)
+
+
+@application.route('/monitoring')
+def monitoring():
+    return render_template('base.html', server_list=get_server_list(), null_date=datetime.date(1900, 1, 1))
 
 
 def refreshnewtweet():
