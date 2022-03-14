@@ -4,7 +4,7 @@ from nick import checkfornick
 from virusparser import virusparser
 from spamurlparser import urlparser
 from ph_twitterbot import check_tweet
-from backupstats import get_server_list
+from backupstats import get_failed_server_list, get_success_server_list
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -74,7 +74,7 @@ def parsedurls():
 
 @application.route('/monitoring')
 def monitoring():
-    return render_template('base.html', server_list=get_server_list(), null_date=datetime.date(1900, 1, 1))
+    return render_template('base.html', failed_servers=get_failed_server_list(), success_servers=get_success_server_list(), null_date=datetime.date(1900, 1, 1))
 
 
 def refreshnewtweet():

@@ -147,19 +147,16 @@
                         <thead>
                         <tr>
                             <th scope="col">Serveur</th>
-                            <th scope="col">Last Failed</th>
-                            <th scope="col">Failed Backup #</th>
-                            <th scope="col">Last Error</th>
                             <th scope="col">Last Success</th>
+                            <th scope="col">Last Failed</th>
+                            <th scope="col">Failed #</th>
+                            <th scope="col">Last Error</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for server in server_list %}
+                        {% for server in failed_servers %}
                         <tr>
                             <td>{{ server.0 }}</td>
-                            <td>{{ server.1 }}</td>
-                            <td>{{ server.3 }}</td>
-                            <td>{{ server.4 }}</td>
                             <td>
                                 {% if server.2 > null_date %}
                                     {{ server.2 }}
@@ -167,6 +164,54 @@
                                     Never
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if server.1 > null_date %}
+                                    {{ server.1 }}
+                                {% else %}
+                                    Never
+                                {% endif %}
+                            </td>
+                            <td>{{ server.3 }}</td>
+                            <td>{{ server.4 }}</td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                <h2>Success Backups</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col">Serveur</th>
+                            <th scope="col">Last Success</th>
+                            <th scope="col">Last Failed</th>
+                            <th scope="col">Failed #</th>
+                            <th scope="col">Last Error</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for server in success_servers %}
+                        <tr>
+                            <td>{{ server.0 }}</td>
+                            <td>
+                                {% if server.2 > null_date %}
+                                    {{ server.2 }}
+                                {% else %}
+                                    Never
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if server.1 > null_date %}
+                                    {{ server.1 }}
+                                {% else %}
+                                    Never
+                                {% endif %}
+                            </td>
+                            <td>{{ server.3 }}</td>
+                            <td>{{ server.4 }}</td>
+
                         </tr>
                         {% endfor %}
                         </tbody>
