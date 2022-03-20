@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>TimeUntilNick | {% block title %}{% endblock title %}</title>
+    <title>TimeUntilNick | {% block title %}Monitoring{% endblock title %}</title>
     <!-- Bootstrap core CSS -->
     <link href="https://media.timeuntilnick.work/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -140,8 +140,18 @@
                 </div>
 
 {#                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>#}
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Failed Backups</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Success Backups</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Success Backups</a>
+                  </li>
+                </ul>
 
-                <h2>Failed Backups</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>

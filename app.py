@@ -7,9 +7,17 @@ from ph_twitterbot import check_tweet
 from backupstats import get_failed_server_list, get_success_server_list
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
-
+import mysql.connector
+import os
 
 application = Flask(__name__)
+
+# ENV VARIABLES
+DB_USER = os.environ['DB_USER']
+DB_PASSWORD = os.environ['DB_PASSWORD']
+DB_HOST = os.environ['DB_HOST']
+DB_PORT = int(os.environ['DB_PORT'])
+DB_NAME = os.environ['DB_NAME']
 
 
 @application.errorhandler(403)
@@ -39,7 +47,8 @@ def commercial():
     if time == -1:
         return render_template('index.html', time='Commercial department is open right now!')
     else:
-        return render_template('index.html', time='Commercial department will be back in {} minute(s)'.format(str(int(time)+30)))
+        return render_template('index.html',
+                               time='Commercial department will be back in {} minute(s)'.format(str(int(time) + 30)))
 
 
 @application.route('/virusform')
@@ -74,12 +83,26 @@ def parsedurls():
 
 @application.route('/monitoring')
 def monitoring():
-    return render_template('base.html', failed_servers=get_failed_server_list(), success_servers=get_success_server_list(), null_date=datetime.date(1900, 1, 1))
+    conn = mysqlconnect()
+    return render_template('base.html', failed_servers=get_failed_server_list(conn),
+                           success_servers=get_success_server_list(conn), null_date=datetime.date(1900, 1, 1))
 
 
 def refreshnewtweet():
-    check_tweet()
+    check_tweet(mysqlconnect())
     print("New Tweet Checked")
+
+
+def mysqlconnect():
+    conn = mysql.connector.connect(
+        user=DB_USER,
+        password=DB_PASSWORD,
+        host=DB_HOST,
+        port=DB_PORT,
+        database=DB_NAME,
+    )
+    conn.autocommit = True
+    return conn
 
 
 scheduler = BackgroundScheduler()
@@ -88,7 +111,5 @@ scheduler.start()
 
 atexit.register(lambda: scheduler.shutdown())
 
-
 if __name__ == "__main__":
     application.run()
-
