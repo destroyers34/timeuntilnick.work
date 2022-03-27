@@ -4,7 +4,7 @@ from nick import checkfornick
 from virusparser import virusparser
 from spamurlparser import urlparser
 from ph_twitterbot import check_tweet
-from backupstats import get_failed_server_list, get_success_server_list
+from backupstats import get_failed_server_list, get_success_server_list, check_mail
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 import mysql.connector
@@ -107,6 +107,7 @@ def mysqlconnect():
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=refreshnewtweet, trigger="interval", seconds=60)
+scheduler.add_job(func=check_mail, trigger="interval", seconds=3600)
 scheduler.start()
 
 atexit.register(lambda: scheduler.shutdown())
